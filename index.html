@@ -167,12 +167,12 @@
               <span style="font-family:'Geist',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">{{ a.name }}</span>
               <span style="font-size:13.5px;color:#54606D">{{ a.meta }}</span>
             </div>
-            <span style="display:inline-flex;align-items:center;height:46px;padding:0 24px;background:#0D2E73;color:#fff;font-size:13px;font-weight:700;letter-spacing:.06em;cursor:pointer;flex:none" style-hover="background:#22BC74;color:#0D2E73">Book</span>
+            <span onClick="{{ a.book }}" style="display:inline-flex;align-items:center;height:46px;padding:0 24px;background:#0D2E73;color:#fff;font-size:13px;font-weight:700;letter-spacing:.06em;cursor:pointer;flex:none" style-hover="background:#22BC74;color:#0D2E73">Book</span>
           </div>
         </sc-for>
         <div style="padding:18px 26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
-          <span style="font-size:12.5px;color:#54606D">Live availability, Monday to Saturday</span>
-          <span style="font-size:12.5px;color:#54606D">Scheduling by Acuity</span>
+          <span style="font-size:12.5px;color:#54606D">Monday to Saturday</span>
+          <span style="font-size:12.5px;color:#54606D">Every appointment confirmed with you first</span>
         </div>
       </div>
     </div>
@@ -290,12 +290,39 @@
       <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
         <div style="background:#0D2E73;color:#fff;padding:44px 38px;display:flex;flex-direction:column;gap:12px">
           <span style="font-family:'Geist',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.03em">Thanks, request received</span>
-          <span style="font-size:15px;line-height:1.6;color:rgba(255,255,255,.82)">We'll come back to you within one working day with a schedule and price.</span>
+          <span style="font-size:15px;line-height:1.6;color:rgba(255,255,255,.82)">{{ sentNote }}</span>
           <span onClick="{{ reset }}" style="align-self:flex-start;margin-top:14px;font-size:13.5px;font-weight:700;color:#22BC74;cursor:pointer;border-bottom:1px solid #22BC74">Send another</span>
         </div>
       </sc-if>
       <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:22px">
+          <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
+            <span style="font-size:13px;font-weight:600;color:#3D4956">Request type</span>
+            <select value="{{ requestType }}" onChange="{{ onRequestType }}" style="height:52px;padding:0 14px;border:1px solid #D0D9E6;background:#F6F8FA;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%">
+              <sc-for list="{{ requestTypes }}" as="o" hint-placeholder-count="3">
+                <option value="{{ o }}">{{ o }}</option>
+              </sc-for>
+            </select>
+          </label>
+          <sc-if value="{{ isSurvey }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:14px;padding:20px;border:1px solid #D0D9E6;background:#F6F8FA">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:20px">
+                <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
+                  <span style="font-size:13px;font-weight:600;color:#3D4956">Preferred date (required)</span>
+                  <input type="date" min="{{ minDate }}" value="{{ surveyDate }}" onChange="{{ onSurveyDate }}" style="height:52px;padding:0 16px;border:1px solid #D0D9E6;background:#fff;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%" style-focus="border-color:#0D2E73;background:#fff">
+                </label>
+                <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
+                  <span style="font-size:13px;font-weight:600;color:#3D4956">Preferred time (required)</span>
+                  <select value="{{ surveyTime }}" onChange="{{ onSurveyTime }}" style="height:52px;padding:0 14px;border:1px solid #D0D9E6;background:#fff;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%">
+                    <sc-for list="{{ surveyTimes }}" as="o" hint-placeholder-count="4">
+                      <option value="{{ o }}">{{ o }}</option>
+                    </sc-for>
+                  </select>
+                </label>
+              </div>
+              <span style="font-size:13.5px;line-height:1.55;color:#3D4956">This is a request, not a confirmed booking. We'll call or email to agree a time that suits you, and someone from our team will meet you on site. We won't turn up without confirming with you first.</span>
+            </div>
+          </sc-if>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:20px">
             <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
               <span style="font-size:13px;font-weight:600;color:#3D4956">First name (required)</span>
@@ -358,7 +385,7 @@ class Component extends DCLogic {
   state = {
     open: 0, sent: false,
     firstName: "", lastName: "", email: "", phone: "", company: "", message: "",
-    siteType: "Select one"
+    siteType: "Select one", requestType: "General enquiry", surveyDate: "", surveyTime: "Select a time"
   };
 
   field(key) {
@@ -405,8 +432,12 @@ class Component extends DCLogic {
       counties: ["Laois", "Dublin", "Kildare", "Meath", "Wicklow", "Galway", "Mayo", "Roscommon", "Sligo", "Leitrim", "Limerick", "Cork"].map(n => ({ name: n, tag: n === "Laois" ? "head office" : "" })),
       appointments: [
         { name: "Free consultation", meta: "30 minutes, phone or video" },
-        { name: "On-site survey", meta: "45 minutes, at your premises" }
-      ],
+        { name: "On-site survey", meta: "45 minutes, we meet you at your premises" }
+      ].map(a => ({ ...a, book: () => {
+        this.setState({ requestType: a.name });
+        const el = document.getElementById("contact");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      } })),
       gallery: jobs.map((p, i) => ({ id: "v3-work-" + (i + 1), src: "https://www.leinstercleaningservices.ie/wp-content/uploads/2020/09/WhatsApp-Image-2020-09-24-at-" + p + ".jpeg" })),
       quotes: [
         { title: "A truly professional service!", text: "Leinster Cleaning Services transformed our office. The team was punctual, thorough, and incredibly detail-oriented. We've never seen the space so spotless!", who: "Sarah K., Dublin" },
@@ -421,11 +452,21 @@ class Component extends DCLogic {
       sent: this.state.sent,
       notSent: !this.state.sent,
       submit: () => this.setState({ sent: true }),
-      reset: () => this.setState({ sent: false, firstName: "", lastName: "", email: "", phone: "", company: "", message: "" }),
+      reset: () => this.setState({ sent: false, firstName: "", lastName: "", email: "", phone: "", company: "", message: "", requestType: "General enquiry", surveyDate: "", surveyTime: "Select a time" }),
       firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email,
       phone: this.state.phone, company: this.state.company, message: this.state.message, siteType: this.state.siteType,
       onFirstName: this.field("firstName"), onLastName: this.field("lastName"), onEmail: this.field("email"),
       onPhone: this.field("phone"), onCompany: this.field("company"), onMessage: this.field("message"), onSiteType: this.field("siteType"),
+      requestType: this.state.requestType, onRequestType: this.field("requestType"),
+      requestTypes: ["General enquiry", "Free consultation", "On-site survey"],
+      isSurvey: this.state.requestType === "On-site survey",
+      surveyDate: this.state.surveyDate, onSurveyDate: this.field("surveyDate"),
+      surveyTime: this.state.surveyTime, onSurveyTime: this.field("surveyTime"),
+      surveyTimes: ["Select a time", "Morning (9am to 12pm)", "Afternoon (12pm to 3pm)", "Late afternoon (3pm to 6pm)"],
+      minDate: new Date(Date.now() + 864e5).toISOString().slice(0, 10),
+      sentNote: this.state.requestType === "On-site survey"
+        ? "We'll call or email within one working day to confirm a time to meet you on site."
+        : "We'll come back to you within one working day with a schedule and price.",
       siteTypes: ["Select one", "Managed apartment block", "Office or retail unit", "School or college", "Golf or leisure club", "Industrial unit or warehouse"]
     };
   }
