@@ -45,7 +45,7 @@
       <div style="max-width:680px;display:flex;flex-direction:column;gap:28px">
         <span style="font-family:'Geist',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#22BC74">Leinster Cleaning Services</span>
         <h1 style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(46px,7vw,96px);line-height:.96;letter-spacing:-.048em;font-weight:700;text-wrap:balance">Professional cleaning, <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.02em;color:#22BC74">unmatched</span> excellence</h1>
-        <p style="margin:0;max-width:500px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.84)">Residential, commercial and industrial cleaning across Leinster. Tailored to your site, worked around your hours.</p>
+        <p style="margin:0;max-width:500px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.84)">Apartment block, commercial and industrial cleaning nationwide. Tailored to your site, worked around your hours.</p>
         <div style="display:flex;flex-wrap:wrap;gap:12px">
           <a href="#contact" style="display:inline-flex;align-items:center;height:58px;padding:0 32px;background:#22BC74;color:#0D2E73;font-weight:700;font-size:15px" style-hover="background:#fff;color:#0D2E73">Request a quote</a>
           <a href="#consultation" style="display:inline-flex;align-items:center;height:58px;padding:0 32px;border:1px solid rgba(255,255,255,.5);color:#fff;font-weight:600;font-size:15px" style-hover="border-color:#fff;color:#fff">Book a consultation</a>
@@ -97,7 +97,7 @@
     </div>
     <div style="padding:96px clamp(20px,4vw,56px);display:flex;flex-direction:column;gap:28px">
       <span style="font-family:'Geist',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#08784A">Who we serve</span>
-      <h2 style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(34px,4.4vw,56px);line-height:1;letter-spacing:-.045em;font-weight:700;text-wrap:balance">Residential, commercial and <span style="color:#08784A">industrial</span> clients</h2>
+      <h2 style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(34px,4.4vw,56px);line-height:1;letter-spacing:-.045em;font-weight:700;text-wrap:balance">Apartment block, commercial and <span style="color:#08784A">industrial</span> clients</h2>
       <div style="display:flex;flex-direction:column">
         <sc-for list="{{ sectors }}" as="s" hint-placeholder-count="5">
           <div style="display:flex;gap:20px;align-items:baseline;padding:18px 0;border-top:1px solid #D8E0E6">
@@ -118,7 +118,7 @@
       <p style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(27px,3.4vw,44px);line-height:1.16;letter-spacing:-.032em;font-weight:500;text-wrap:pretty">We take pride in providing superior cleaning solutions tailored to your needs, <span style="color:#0D2E73">delivering sparkling results with every job.</span></p>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px;border-top:2px solid #0D2E73;padding-top:22px;flex:1 1 300px;min-width:0">
-      <p style="margin:0;font-size:15.5px;line-height:1.65;color:#3D4956">As one of the leading cleaning service providers in the region, we specialise in residential, commercial and industrial cleaning.</p>
+      <p style="margin:0;font-size:15.5px;line-height:1.65;color:#3D4956">As one of the leading cleaning service providers in the region, we specialise in apartment block, commercial and industrial cleaning.</p>
       <p style="margin:0;font-size:15.5px;line-height:1.65;color:#3D4956">Our mission is simple: to give you the clean, fresh spaces you deserve, with a service that's reliable, efficient and environmentally conscious.</p>
     </div>
   </div>
@@ -167,12 +167,12 @@
               <span style="font-family:'Geist',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">{{ a.name }}</span>
               <span style="font-size:13.5px;color:#54606D">{{ a.meta }}</span>
             </div>
-            <span style="display:inline-flex;align-items:center;height:46px;padding:0 24px;background:#0D2E73;color:#fff;font-size:13px;font-weight:700;letter-spacing:.06em;cursor:pointer;flex:none" style-hover="background:#22BC74;color:#0D2E73">Book</span>
+            <span onClick="{{ a.book }}" style="display:inline-flex;align-items:center;height:46px;padding:0 24px;background:#0D2E73;color:#fff;font-size:13px;font-weight:700;letter-spacing:.06em;cursor:pointer;flex:none" style-hover="background:#22BC74;color:#0D2E73">Book</span>
           </div>
         </sc-for>
         <div style="padding:18px 26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
-          <span style="font-size:12.5px;color:#54606D">Live availability, Monday to Saturday</span>
-          <span style="font-size:12.5px;color:#54606D">Scheduling by Acuity</span>
+          <span style="font-size:12.5px;color:#54606D">Monday to Saturday</span>
+          <span style="font-size:12.5px;color:#54606D">Every appointment confirmed with you first</span>
         </div>
       </div>
     </div>
@@ -290,12 +290,39 @@
       <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
         <div style="background:#0D2E73;color:#fff;padding:44px 38px;display:flex;flex-direction:column;gap:12px">
           <span style="font-family:'Geist',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.03em">Thanks, request received</span>
-          <span style="font-size:15px;line-height:1.6;color:rgba(255,255,255,.82)">We'll come back to you within one working day with a schedule and price.</span>
+          <span style="font-size:15px;line-height:1.6;color:rgba(255,255,255,.82)">{{ sentNote }}</span>
           <span onClick="{{ reset }}" style="align-self:flex-start;margin-top:14px;font-size:13.5px;font-weight:700;color:#22BC74;cursor:pointer;border-bottom:1px solid #22BC74">Send another</span>
         </div>
       </sc-if>
       <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:22px">
+          <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
+            <span style="font-size:13px;font-weight:600;color:#3D4956">Request type</span>
+            <select value="{{ requestType }}" onChange="{{ onRequestType }}" style="height:52px;padding:0 14px;border:1px solid #D0D9E6;background:#F6F8FA;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%">
+              <sc-for list="{{ requestTypes }}" as="o" hint-placeholder-count="3">
+                <option value="{{ o }}">{{ o }}</option>
+              </sc-for>
+            </select>
+          </label>
+          <sc-if value="{{ isSurvey }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:14px;padding:20px;border:1px solid #D0D9E6;background:#F6F8FA">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:20px">
+                <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
+                  <span style="font-size:13px;font-weight:600;color:#3D4956">Preferred date (required)</span>
+                  <input type="date" min="{{ minDate }}" value="{{ surveyDate }}" onChange="{{ onSurveyDate }}" style="height:52px;padding:0 16px;border:1px solid #D0D9E6;background:#fff;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%" style-focus="border-color:#0D2E73;background:#fff">
+                </label>
+                <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
+                  <span style="font-size:13px;font-weight:600;color:#3D4956">Preferred time (required)</span>
+                  <select value="{{ surveyTime }}" onChange="{{ onSurveyTime }}" style="height:52px;padding:0 14px;border:1px solid #D0D9E6;background:#fff;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%">
+                    <sc-for list="{{ surveyTimes }}" as="o" hint-placeholder-count="4">
+                      <option value="{{ o }}">{{ o }}</option>
+                    </sc-for>
+                  </select>
+                </label>
+              </div>
+              <span style="font-size:13.5px;line-height:1.55;color:#3D4956">This is a request, not a confirmed booking. We'll call or email to agree a time that suits you, and someone from our team will meet you on site. We won't turn up without confirming with you first.</span>
+            </div>
+          </sc-if>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:20px">
             <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
               <span style="font-size:13px;font-weight:600;color:#3D4956">First name (required)</span>
@@ -316,6 +343,10 @@
               <input type="tel" value="{{ phone }}" onChange="{{ onPhone }}" style="height:52px;padding:0 16px;border:1px solid #D0D9E6;background:#F6F8FA;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%" style-focus="border-color:#0D2E73;background:#fff">
             </label>
           </div>
+          <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
+            <span style="font-size:13px;font-weight:600;color:#3D4956">Company</span>
+            <input type="text" value="{{ company }}" onChange="{{ onCompany }}" style="height:52px;padding:0 16px;border:1px solid #D0D9E6;background:#F6F8FA;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%" style-focus="border-color:#0D2E73;background:#fff">
+          </label>
           <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
             <span style="font-size:13px;font-weight:600;color:#3D4956">Site type</span>
             <select value="{{ siteType }}" onChange="{{ onSiteType }}" style="height:52px;padding:0 14px;border:1px solid #D0D9E6;background:#F6F8FA;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%">
@@ -353,8 +384,8 @@
 class Component extends DCLogic {
   state = {
     open: 0, sent: false,
-    firstName: "", lastName: "", email: "", phone: "", message: "",
-    siteType: "Select one"
+    firstName: "", lastName: "", email: "", phone: "", company: "", message: "",
+    siteType: "Select one", requestType: "General enquiry", surveyDate: "", surveyTime: "Select a time"
   };
 
   field(key) {
@@ -383,8 +414,8 @@ class Component extends DCLogic {
         { name: "Commercial Cleaning", desc: "Offices, retail spaces, and more. A clean environment that enhances productivity.", photo: "1497366754035-f200968a6e72", by: "Nastuh Abootalebi", at: "sunday_digital" },
         { name: "Industrial Cleaning", desc: "Designed to handle the rigorous demands of large-scale facilities.", photo: "1740657254989-42fe9c3b8cce", by: "PuroClean of Fort Worth", at: "purocleanoffortworth" },
         { name: "Carpet & Upholstery Cleaning", desc: "Deep extraction for carpets, chairs and soft furnishings.", photo: "1742483359033-13315b247c74", by: "California Steam & Dry Carpet Cleaning", at: "calsteamanddrycarpet" },
-        { name: "Window Cleaning", desc: "Internal and external glass, including high-level access.", photo: "1581578731548-c64695cc6952", by: "CDC", at: "cdc" }
-      ].map((s, i) => ({ ...s, num: "0" + (i + 1), id: "v3-service-" + (i + 1), src: "https://images.unsplash.com/photo-" + s.photo + "?fm=jpg&q=72&w=1200&auto=format&fit=crop", credit: "Photo by " + s.by + " on Unsplash", creditHref: "https://unsplash.com/@" + s.at, hint: "Drop a photo: " + s.name.toLowerCase() })),
+        { name: "Window Cleaning", desc: "Internal and external glass, including high-level access.", src: "assets/window-cleaning.jpg", credit: "", creditHref: "" }
+      ].map((s, i) => ({ num: "0" + (i + 1), id: "v3-service-" + (i + 1), src: "https://images.unsplash.com/photo-" + s.photo + "?fm=jpg&q=72&w=1200&auto=format&fit=crop", credit: "Photo by " + s.by + " on Unsplash", creditHref: "https://unsplash.com/@" + s.at, ...s, hint: "Drop a photo: " + s.name.toLowerCase() })),
       sectors: [
         { name: "Property management", note: "Common areas, stairwells and turnover cleans across managed blocks." },
         { name: "Offices & corporate", note: "Daily or evening contract cleaning with a consistent team." },
@@ -401,9 +432,12 @@ class Component extends DCLogic {
       counties: ["Laois", "Dublin", "Kildare", "Meath", "Wicklow", "Galway", "Mayo", "Roscommon", "Sligo", "Leitrim", "Limerick", "Cork"].map(n => ({ name: n, tag: n === "Laois" ? "head office" : "" })),
       appointments: [
         { name: "Free consultation", meta: "30 minutes, phone or video" },
-        { name: "On-site survey", meta: "45 minutes, at your premises" },
-        { name: "Contract review", meta: "30 minutes, existing clients" }
-      ],
+        { name: "On-site survey", meta: "45 minutes, we meet you at your premises" }
+      ].map(a => ({ ...a, book: () => {
+        this.setState({ requestType: a.name });
+        const el = document.getElementById("contact");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      } })),
       gallery: jobs.map((p, i) => ({ id: "v3-work-" + (i + 1), src: "https://www.leinstercleaningservices.ie/wp-content/uploads/2020/09/WhatsApp-Image-2020-09-24-at-" + p + ".jpeg" })),
       quotes: [
         { title: "A truly professional service!", text: "Leinster Cleaning Services transformed our office. The team was punctual, thorough, and incredibly detail-oriented. We've never seen the space so spotless!", who: "Sarah K., Dublin" },
@@ -418,12 +452,22 @@ class Component extends DCLogic {
       sent: this.state.sent,
       notSent: !this.state.sent,
       submit: () => this.setState({ sent: true }),
-      reset: () => this.setState({ sent: false, firstName: "", lastName: "", email: "", phone: "", message: "" }),
+      reset: () => this.setState({ sent: false, firstName: "", lastName: "", email: "", phone: "", company: "", message: "", requestType: "General enquiry", surveyDate: "", surveyTime: "Select a time" }),
       firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email,
-      phone: this.state.phone, message: this.state.message, siteType: this.state.siteType,
+      phone: this.state.phone, company: this.state.company, message: this.state.message, siteType: this.state.siteType,
       onFirstName: this.field("firstName"), onLastName: this.field("lastName"), onEmail: this.field("email"),
-      onPhone: this.field("phone"), onMessage: this.field("message"), onSiteType: this.field("siteType"),
-      siteTypes: ["Select one", "Managed apartment block", "Office or retail unit", "School or college", "Golf or leisure club", "Industrial unit or warehouse", "Private home", "End of tenancy"]
+      onPhone: this.field("phone"), onCompany: this.field("company"), onMessage: this.field("message"), onSiteType: this.field("siteType"),
+      requestType: this.state.requestType, onRequestType: this.field("requestType"),
+      requestTypes: ["General enquiry", "Free consultation", "On-site survey"],
+      isSurvey: this.state.requestType === "On-site survey",
+      surveyDate: this.state.surveyDate, onSurveyDate: this.field("surveyDate"),
+      surveyTime: this.state.surveyTime, onSurveyTime: this.field("surveyTime"),
+      surveyTimes: ["Select a time", "Morning (9am to 12pm)", "Afternoon (12pm to 3pm)", "Late afternoon (3pm to 6pm)"],
+      minDate: new Date(Date.now() + 864e5).toISOString().slice(0, 10),
+      sentNote: this.state.requestType === "On-site survey"
+        ? "We'll call or email within one working day to confirm a time to meet you on site."
+        : "We'll come back to you within one working day with a schedule and price.",
+      siteTypes: ["Select one", "Managed apartment block", "Office or retail unit", "School or college", "Golf or leisure club", "Industrial unit or warehouse"]
     };
   }
 }
