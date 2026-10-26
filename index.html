@@ -45,7 +45,7 @@
       <div style="max-width:680px;display:flex;flex-direction:column;gap:28px">
         <span style="font-family:'Geist',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#22BC74">Leinster Cleaning Services</span>
         <h1 style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(46px,7vw,96px);line-height:.96;letter-spacing:-.048em;font-weight:700;text-wrap:balance">Professional cleaning, <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.02em;color:#22BC74">unmatched</span> excellence</h1>
-        <p style="margin:0;max-width:500px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.84)">Residential, commercial and industrial cleaning across Leinster. Tailored to your site, worked around your hours.</p>
+        <p style="margin:0;max-width:500px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.84)">Apartment block, commercial and industrial cleaning nationwide. Tailored to your site, worked around your hours.</p>
         <div style="display:flex;flex-wrap:wrap;gap:12px">
           <a href="#contact" style="display:inline-flex;align-items:center;height:58px;padding:0 32px;background:#22BC74;color:#0D2E73;font-weight:700;font-size:15px" style-hover="background:#fff;color:#0D2E73">Request a quote</a>
           <a href="#consultation" style="display:inline-flex;align-items:center;height:58px;padding:0 32px;border:1px solid rgba(255,255,255,.5);color:#fff;font-weight:600;font-size:15px" style-hover="border-color:#fff;color:#fff">Book a consultation</a>
@@ -97,7 +97,7 @@
     </div>
     <div style="padding:96px clamp(20px,4vw,56px);display:flex;flex-direction:column;gap:28px">
       <span style="font-family:'Geist',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#08784A">Who we serve</span>
-      <h2 style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(34px,4.4vw,56px);line-height:1;letter-spacing:-.045em;font-weight:700;text-wrap:balance">Residential, commercial and <span style="color:#08784A">industrial</span> clients</h2>
+      <h2 style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(34px,4.4vw,56px);line-height:1;letter-spacing:-.045em;font-weight:700;text-wrap:balance">Apartment block, commercial and <span style="color:#08784A">industrial</span> clients</h2>
       <div style="display:flex;flex-direction:column">
         <sc-for list="{{ sectors }}" as="s" hint-placeholder-count="5">
           <div style="display:flex;gap:20px;align-items:baseline;padding:18px 0;border-top:1px solid #D8E0E6">
@@ -118,7 +118,7 @@
       <p style="margin:0;font-family:'Geist',sans-serif;font-size:clamp(27px,3.4vw,44px);line-height:1.16;letter-spacing:-.032em;font-weight:500;text-wrap:pretty">We take pride in providing superior cleaning solutions tailored to your needs, <span style="color:#0D2E73">delivering sparkling results with every job.</span></p>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px;border-top:2px solid #0D2E73;padding-top:22px;flex:1 1 300px;min-width:0">
-      <p style="margin:0;font-size:15.5px;line-height:1.65;color:#3D4956">As one of the leading cleaning service providers in the region, we specialise in residential, commercial and industrial cleaning.</p>
+      <p style="margin:0;font-size:15.5px;line-height:1.65;color:#3D4956">As one of the leading cleaning service providers in the region, we specialise in apartment block, commercial and industrial cleaning.</p>
       <p style="margin:0;font-size:15.5px;line-height:1.65;color:#3D4956">Our mission is simple: to give you the clean, fresh spaces you deserve, with a service that's reliable, efficient and environmentally conscious.</p>
     </div>
   </div>
@@ -317,6 +317,10 @@
             </label>
           </div>
           <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
+            <span style="font-size:13px;font-weight:600;color:#3D4956">Company</span>
+            <input type="text" value="{{ company }}" onChange="{{ onCompany }}" style="height:52px;padding:0 16px;border:1px solid #D0D9E6;background:#F6F8FA;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%" style-focus="border-color:#0D2E73;background:#fff">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;min-width:0">
             <span style="font-size:13px;font-weight:600;color:#3D4956">Site type</span>
             <select value="{{ siteType }}" onChange="{{ onSiteType }}" style="height:52px;padding:0 14px;border:1px solid #D0D9E6;background:#F6F8FA;font-family:'Manrope',sans-serif;font-size:15px;color:#14161A;outline:none;box-sizing:border-box;width:100%">
               <sc-for list="{{ siteTypes }}" as="o" hint-placeholder-count="6">
@@ -353,7 +357,7 @@
 class Component extends DCLogic {
   state = {
     open: 0, sent: false,
-    firstName: "", lastName: "", email: "", phone: "", message: "",
+    firstName: "", lastName: "", email: "", phone: "", company: "", message: "",
     siteType: "Select one"
   };
 
@@ -401,8 +405,7 @@ class Component extends DCLogic {
       counties: ["Laois", "Dublin", "Kildare", "Meath", "Wicklow", "Galway", "Mayo", "Roscommon", "Sligo", "Leitrim", "Limerick", "Cork"].map(n => ({ name: n, tag: n === "Laois" ? "head office" : "" })),
       appointments: [
         { name: "Free consultation", meta: "30 minutes, phone or video" },
-        { name: "On-site survey", meta: "45 minutes, at your premises" },
-        { name: "Contract review", meta: "30 minutes, existing clients" }
+        { name: "On-site survey", meta: "45 minutes, at your premises" }
       ],
       gallery: jobs.map((p, i) => ({ id: "v3-work-" + (i + 1), src: "https://www.leinstercleaningservices.ie/wp-content/uploads/2020/09/WhatsApp-Image-2020-09-24-at-" + p + ".jpeg" })),
       quotes: [
@@ -418,12 +421,12 @@ class Component extends DCLogic {
       sent: this.state.sent,
       notSent: !this.state.sent,
       submit: () => this.setState({ sent: true }),
-      reset: () => this.setState({ sent: false, firstName: "", lastName: "", email: "", phone: "", message: "" }),
+      reset: () => this.setState({ sent: false, firstName: "", lastName: "", email: "", phone: "", company: "", message: "" }),
       firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email,
-      phone: this.state.phone, message: this.state.message, siteType: this.state.siteType,
+      phone: this.state.phone, company: this.state.company, message: this.state.message, siteType: this.state.siteType,
       onFirstName: this.field("firstName"), onLastName: this.field("lastName"), onEmail: this.field("email"),
-      onPhone: this.field("phone"), onMessage: this.field("message"), onSiteType: this.field("siteType"),
-      siteTypes: ["Select one", "Managed apartment block", "Office or retail unit", "School or college", "Golf or leisure club", "Industrial unit or warehouse", "Private home", "End of tenancy"]
+      onPhone: this.field("phone"), onCompany: this.field("company"), onMessage: this.field("message"), onSiteType: this.field("siteType"),
+      siteTypes: ["Select one", "Managed apartment block", "Office or retail unit", "School or college", "Golf or leisure club", "Industrial unit or warehouse"]
     };
   }
 }
