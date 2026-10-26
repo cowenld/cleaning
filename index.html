@@ -383,8 +383,8 @@ class Component extends DCLogic {
         { name: "Commercial Cleaning", desc: "Offices, retail spaces, and more. A clean environment that enhances productivity.", photo: "1497366754035-f200968a6e72", by: "Nastuh Abootalebi", at: "sunday_digital" },
         { name: "Industrial Cleaning", desc: "Designed to handle the rigorous demands of large-scale facilities.", photo: "1740657254989-42fe9c3b8cce", by: "PuroClean of Fort Worth", at: "purocleanoffortworth" },
         { name: "Carpet & Upholstery Cleaning", desc: "Deep extraction for carpets, chairs and soft furnishings.", photo: "1742483359033-13315b247c74", by: "California Steam & Dry Carpet Cleaning", at: "calsteamanddrycarpet" },
-        { name: "Window Cleaning", desc: "Internal and external glass, including high-level access.", photo: "1581578731548-c64695cc6952", by: "CDC", at: "cdc" }
-      ].map((s, i) => ({ ...s, num: "0" + (i + 1), id: "v3-service-" + (i + 1), src: "https://images.unsplash.com/photo-" + s.photo + "?fm=jpg&q=72&w=1200&auto=format&fit=crop", credit: "Photo by " + s.by + " on Unsplash", creditHref: "https://unsplash.com/@" + s.at, hint: "Drop a photo: " + s.name.toLowerCase() })),
+        { name: "Window Cleaning", desc: "Internal and external glass, including high-level access.", src: "assets/window-cleaning.jpg", credit: "", creditHref: "" }
+      ].map((s, i) => ({ num: "0" + (i + 1), id: "v3-service-" + (i + 1), src: "https://images.unsplash.com/photo-" + s.photo + "?fm=jpg&q=72&w=1200&auto=format&fit=crop", credit: "Photo by " + s.by + " on Unsplash", creditHref: "https://unsplash.com/@" + s.at, ...s, hint: "Drop a photo: " + s.name.toLowerCase() })),
       sectors: [
         { name: "Property management", note: "Common areas, stairwells and turnover cleans across managed blocks." },
         { name: "Offices & corporate", note: "Daily or evening contract cleaning with a consistent team." },
