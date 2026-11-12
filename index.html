@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  html { scroll-behavior:smooth; }
+  html { scroll-behavior:smooth; overflow-anchor:none; }
   body { margin:0; background:#fff; -webkit-font-smoothing:antialiased; }
   a { color:#0D2E73; text-decoration:none; }
   a:hover { color:#08784A; }
@@ -24,7 +24,7 @@
     var root = document.documentElement;
     function onScroll() {
       var y = window.scrollY;
-      if (y > 40) root.setAttribute("data-scrolled", "");
+      if (y > 64) root.setAttribute("data-scrolled", "");
       else if (y < 8) root.removeAttribute("data-scrolled");
     }
     window.addEventListener("scroll", onScroll, { passive: true });
