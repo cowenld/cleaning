@@ -16,7 +16,21 @@
   body { margin:0; background:#fff; -webkit-font-smoothing:antialiased; }
   a { color:#0D2E73; text-decoration:none; }
   a:hover { color:#08784A; }
+  [data-nav-logo] { height:clamp(64px,8vw,96px); width:auto; display:block; transition:height .25s ease; }
+  html[data-scrolled] [data-nav-logo] { height:44px; }
 </style>
+<script>
+  (function () {
+    var root = document.documentElement;
+    function onScroll() {
+      var y = window.scrollY;
+      if (y > 40) root.setAttribute("data-scrolled", "");
+      else if (y < 8) root.removeAttribute("data-scrolled");
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
 <script src="./image-slot.js"></script>
 </helmet>
 
@@ -24,7 +38,7 @@
 
   <div style="position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #E8EEF2">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 36px;padding:9px clamp(20px,4vw,56px)">
-        <a href="#home" style="display:block;line-height:0"><img src="assets/lcs-logo.png" alt="Leinster Cleaning Services" style="height:44px;width:auto;display:block"></a>
+        <a href="#home" style="display:block;line-height:0"><img data-nav-logo src="assets/lcs-logo.png" alt="Leinster Cleaning Services"></a>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 26px;font-size:13.5px;font-weight:600">
           <a href="#services" style="color:#3D4956" style-hover="color:#0D2E73">Services</a>
           <a href="#who-we-serve" style="color:#3D4956" style-hover="color:#0D2E73">Who we serve</a>
